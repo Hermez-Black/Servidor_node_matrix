@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var trace = require('./middleware')
 var indexRouter = require('./routes/index');
 var tasksRouter = require('./routes/tasks');
 
@@ -18,7 +18,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/tasks', tasksRouter);
-
+app.use('/tasks', trace, tasksRouter);
 
 module.exports = app;
